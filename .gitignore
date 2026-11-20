@@ -1,0 +1,27 @@
+# OS and editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Go
+*.exe
+*.out
+bin/
+
+# Lab temp outputs and secrets
+backups/
+*.tmp
+.env
+.env.*
+!.env.example
