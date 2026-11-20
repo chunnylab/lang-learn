@@ -1,11 +1,15 @@
-# เฟส 3: Go แบบเรียบง่ายสำหรับงาน Infra
+# Phase 3: Minimal Go for Infra Tools
 
-เรียน Go ในขอบเขตที่เขียน CLI Tool ขนาดเล็กได้เอง และอ่านโค้ดเครื่องมือสาย Cloud Native (Docker, Kubernetes, Terraform) ออก
+Go powers Docker, Kubernetes, Terraform, and Prometheus. The goal here is not backend architecture, but writing clean small CLIs and reading Cloud Native code without guessing.
 
-## หัวข้อที่จะสร้างในเฟสนี้
+## Lesson Order (Weeks 8 to 10)
 
-1. `01_core/`: ตัวแปร, `struct`, `slice`, `map`, Function ที่คืนค่าหลายตัว และ `if err != nil`
-2. `02_pointers/`: ส่งค่า (`val`) vs ส่งที่อยู่ (`*val`) แบบใช้งานจริง
-3. `03_stdlib/`: `os`, `flag`, `net/http`, `encoding/json`
-4. `04_concurrency/`: `goroutine` และ `WaitGroup` สำหรับยิงเช็คหลายปลายทางพร้อมกัน
-5. `05_project/`: Concurrent Health Checker ที่คอมไพล์เป็น Binary ไฟล์เดียวด้วย `go build`
+Concurrency and pointers are introduced only after the basics feel comfortable:
+
+1. **`01_basics/`**: packages, variables, types, `if`, `for`, multiple return values, and the `if err != nil` pattern.
+2. **`02_data/`**: `slice`, `map`, `struct`, and decoding JSON with `encoding/json`.
+3. **`03_pointers_plain/`**: one short, concrete example of passing by value (`val`) vs pointer (`*val`) and avoiding nil pointer panics.
+4. **`04_cli_http/`**: `flag`, `os.Getenv`, and `net/http` client calls with explicit timeouts.
+5. **`05_project_healthcheck/` (Capstone)**:
+   - Step A: build a sequential URL health checker compiled to a single binary (`go build`).
+   - Step B: upgrade the same tool with `goroutine` and `sync.WaitGroup` so you can see the speed difference directly.

@@ -1,101 +1,108 @@
 # lang-learn
 
-แผนการเรียนและคลังแบบฝึกหัดภาษาโปรแกรมสำหรับงาน Cloud, DevOps และ SysAdmin เน้นความเรียบง่ายและใช้งานจริง โดยรวมงานฝึก Bash เดิมจาก `bash-script-learning` และ `bash-practice` เข้ามาไว้ในที่เดียวเพื่อต่อยอดไปยัง Python, Go และความรู้ฝั่ง Ops
+A practical, minimal programming curriculum for Cloud, DevOps, and SysAdmin roles.
 
-## สรุปการตัดสินใจ: ภาษาไหนควรเรียน ภาษาไหนข้ามได้
+This repository brings together my existing Bash exercises (`bash-script-learning` and `bash-practice`) and builds a step-by-step path into Production Bash, Python, Go, and core Ops concepts. Every lesson stays short, runnable, and tied to real infrastructure tasks instead of textbook algorithms.
 
-| ภาษา | ระดับที่ควรทำได้ | เหตุผลสำหรับสาย Cloud / DevOps / SysAdmin |
+## Language Scope: What to Learn and What to Skip
+
+| Language | Target Level | Why for Cloud / DevOps / SysAdmin |
 | :--- | :--- | :--- |
-| **Bash** | ✅ เขียนเองคล่อง (ต่อยอด) | ใช้ทุกวันบน Linux server, CI/CD และแก้ปัญหาหน้างาน |
-| **Python** | ✅ เขียนเองคล่อง (ภาษาหลัก) | มาตรฐานงาน Automation, AWS (`boto3`), API, Lambda และอยู่ใน CV แล้ว |
-| **Go** | ✅ เขียนเครื่องมือเล็กๆ และอ่านโค้ดได้ | ภาษาหลักของ Docker, Kubernetes, Terraform โครงสร้างเรียบง่าย |
-| **SQL / YAML / JSON / Regex** | ✅ ใช้งานคล่อง | เจอทุกวันใน Config, Log, Database และ Infrastructure as Code |
-| **JS / TypeScript / Java** | ⚠️ อ่านออกและแก้จุดเล็กๆ ได้ | มีพื้นฐาน Concept อยู่แล้ว แค่พออ่าน Stack trace, ปรับ Memory JVM หรือแก้ Cloudflare Workers |
-| **Rust** | ❌ ยังไม่ต้องเรียน (ใช้ AI ช่วยได้) | ใช้เวลาเรียนสูง (Ownership, Borrow Checker) และงาน Junior ถึง Mid สายนี้แทบไม่บังคับเขียนเอง |
-| **C / C++** | ❌ ไม่ต้องหัดเขียนเอง | สายงานนี้ไม่ได้เขียน Kernel หรือ Driver เอง แค่เข้าใจ Concept ฝั่ง Linux OS ก็พอ |
+| **Bash** | ✅ Write comfortably | Daily tool on Linux servers, CI/CD pipelines, and quick troubleshooting |
+| **Python** | ✅ Write comfortably (primary) | Standard for automation, AWS (`boto3`), HTTP APIs, Lambda, and technical interviews |
+| **Go** | ✅ Write small CLIs and read code | Core language of Docker, Kubernetes, and Terraform; small syntax and single-binary deploys |
+| **SQL / YAML / JSON / Regex** | ✅ Use comfortably | Shows up daily in logs, configs, databases, and Infrastructure as Code |
+| **JS / TypeScript / Java** | ⚠️ Read and make small edits | Existing concepts are enough to read stack traces, tune JVM memory, or edit Cloudflare Workers |
+| **Rust** | ❌ Skip for now (use AI when needed) | Steep learning curve (ownership, borrow checker) and rarely required for junior-to-mid Ops roles |
+| **C / C++** | ❌ Do not learn to write from scratch | Ops work does not require writing kernels or drivers; focus on Linux OS concepts instead |
 
-### ทำไมถึงยังไม่ควรลุย Rust และ C/C++ ตอนนี้
+### Why Rust and C/C++ Are Out of Scope
 
-Rust ออกแบบมาสำหรับงานระบบที่คุมหน่วยความจำละเอียด ซึ่งต้องใช้เวลาฝึกนานกว่าจะได้ผลลัพธ์เทียบเท่า Python หรือ Go ถ้างานจำเป็นต้องใช้เครื่องมือที่เขียนด้วย Rust สามารถให้ AI ช่วยเขียนและเราตรวจด้วย Test แทนได้
+Rust is built for low-level systems with strict memory control. Learning it well takes far more time than getting productive in Python or Go, and hiring pipelines for Cloud, DevOps, and SysAdmin roles almost never test Rust. If a task ever needs a Rust tool, using AI with tests is enough.
 
-ส่วน C และ C++ สิ่งที่คนทำงาน SysAdmin หรือ DevOps ต้องรู้จริงไม่ใช่การเขียนโค้ด C แต่คือแนวคิดของระบบปฏิบัติการที่อยู่เบื้องหลัง เช่น Process, Thread, Exit Code, File Descriptor, Out of Memory (OOM) และการคอมไพล์โปรแกรมจาก Source เวลาแก้ปัญหาบนเซิร์ฟเวอร์
+For C and C++, the useful part for Ops is not writing C syntax. It is understanding how Linux runs programs: processes, signals, exit codes, file descriptors, Out of Memory (OOM) kills, and building from source when a package is missing. Those topics live in Phase 4.
 
 ---
 
-## แนวคิดหลัก: เรียน 1 โครงสร้าง ใช้ข้ามได้ทุกภาษา
+## Core Mental Model: 7 Building Blocks Across Languages
 
-ภาษาส่วนใหญ่ใช้แกนหลักแค่ 7 อย่างเหมือนกันหมด ต่างกันแค่ไวยากรณ์และจุดแข็ง เมื่อเทียบกับ Bash ที่เคยเขียนแล้วจะเห็นภาพเร็วขึ้น
+Most scripting and automation languages share the same 7 parts. Mapping Python and Go back to Bash makes the transition faster.
 
-| แกนหลัก | Bash | Python | Go |
+| Concept | Bash | Python | Go |
 | :--- | :--- | :--- | :--- |
-| ตัวแปร | `name="web"` | `name = "web"` | `name := "web"` |
-| เงื่อนไข | `if [ "$a" -eq 1 ]; then` | `if a == 1:` | `if a == 1 {` |
-| ลูป | `for x in "${arr[@]}"; do` | `for x in arr:` | `for _, x := range arr {` |
-| ฟังก์ชัน | `check() { ... }` | `def check():` | `func check() error {` |
-| รายการข้อมูล | Array `("a" "b")` | `list`, `dict` | `slice`, `map`, `struct` |
-| การจัดการ Error | `set -e`, `$?` | `try / except` | `if err != nil` |
-| การรันงาน | รันตรงผ่าน Shell | รันผ่าน Python runtime | คอมไพล์เป็น Binary ไฟล์เดียว |
+| Variable | `name="web"` | `name = "web"` | `name := "web"` |
+| Condition | `if [ "$a" -eq 1 ]; then` | `if a == 1:` | `if a == 1 {` |
+| Loop | `for x in "${arr[@]}"; do` | `for x in arr:` | `for _, x := range arr {` |
+| Function | `check() { ... }` | `def check():` | `func check() error {` |
+| Data | Array `("a" "b")` | `list`, `dict`, `set` | `slice`, `map`, `struct` |
+| Error handling | `set -e`, `$?` | `try / except` | `if err != nil` |
+| Execution | Shell interpreter | Python runtime | Single compiled binary |
 
-กฎการเลือกใช้หน้างานแบบสั้นๆ:
-- สั่งงาน Linux ต่อท่อคำสั่งสั้นๆ (ไม่เกิน ~50 บรรทัด) ใช้ **Bash**
-- จัดการข้อมูล JSON, ยิง API, คุยกับ AWS/Cloudflare, เขียน Automation ใช้ **Python**
-- สร้าง CLI Tool ที่ส่งไปรันบนเครื่องอื่นได้เลยโดยไม่ต้องลง Python/Library เพิ่ม หรือรันเช็คหลายเครื่องพร้อมกัน ใช้ **Go**
+Rule of thumb on the job:
+- Short Linux glue and shell pipes (under ~50 lines): **Bash**
+- JSON/YAML parsing, API calls, AWS/Cloudflare automation, CI scripts: **Python**
+- Standalone CLI tools that run on any server with no runtime dependencies, or concurrent checks: **Go**
 
 ---
 
-## โครงสร้างโฟลเดอร์และแผน 4 เฟส (8 ถึง 10 สัปดาห์)
+## Repository Layout and 4-Phase Roadmap (10 to 12 Weeks)
+
+Paced for roughly 1 hour per day. Each phase ends with one small working tool.
 
 ```text
 lang-learn/
-├── README.md                  # แผนการเรียนหลัก (ไฟล์นี้)
+├── README.md                  # Master plan (this file)
 ├── 01-bash/
-│   ├── README.md              # แผนเฟส 1 และรายการ Lab ที่รวมเข้ามา
-│   ├── basics/                # รวมจาก bash-script-learning (01 ถึง 08)
-│   ├── labs/                  # รวมจาก bash-practice (awk, lab-01 ถึง lab-04)
-│   └── ops/                   # บทเรียนต่อยอด Bash สำหรับงาน Production
-├── 02-python/                 # เฟส 2: Python สำหรับ Cloud และ DevOps
-├── 03-go/                     # เฟส 3: Go สำหรับ CLI และ Infra Tools
-└── 04-ops-concepts/           # เฟส 4: SQL, Linux/OS Concepts และ AI Code Review
+│   ├── README.md              # Phase 1 plan and imported lab index
+│   ├── basics/                # Imported from bash-script-learning (01 to 08)
+│   ├── labs/                  # Imported from bash-practice (awk, lab-01 to lab-04)
+│   └── ops/                   # Phase 1: Production Bash lessons
+├── 02-python/                 # Phase 2: Python for Cloud and DevOps
+├── 03-go/                     # Phase 3: Minimal Go for Infra CLIs
+└── 04-ops-concepts/           # Phase 4: SQL, Linux OS concepts, AI code review
 ```
 
-### เฟส 1: Bash สำหรับงาน Production (`01-bash/`, สัปดาห์ที่ 1 ถึง 2)
+### Phase 1: Production Bash (`01-bash/`, Weeks 1 to 2)
 
-- ปิดงานค้างใน `01-bash/labs/lab-04-logs/analyze.sh` (`report_error_urls`)
-- Strict Mode และ Error Handling: `set -euo pipefail`, `trap`, Exit Code
-- Pipe และ Text Processing: `grep`, `awk`, `sed`, `sort`, `uniq`, `xargs`
-- JSON และ HTTP จาก Terminal: `curl` คู่กับ `jq`
-- งานระบบ: `systemd`, `cron`, `ssh`, เช็ค Disk/CPU/Memory
-- โปรเจคจบเฟส 1: สคริปต์ตรวจสุขภาพเซิร์ฟเวอร์และแจ้งเตือนผ่าน Webhook เมื่อ Disk เต็มหรือ Service ล่ม
+Bridge from basic scripts to safe server automation:
+- Finish the open TODO (`report_error_urls`) in `01-bash/labs/lab-04-logs/analyze.sh`
+- Strict mode, quoting, exit codes, and `trap` cleanup
+- Log filtering with `grep`, `awk`, `sed`, `sort`, `uniq`
+- HTTP and JSON in the terminal with `curl` and `jq`
+- Capstone: a server health-check script (disk + HTTP endpoint) ready to run under `cron` or `systemd`
 
-### เฟส 2: Python สำหรับ Cloud และ DevOps (`02-python/`, สัปดาห์ที่ 3 ถึง 6)
+### Phase 2: Python for Cloud and DevOps (`02-python/`, Weeks 3 to 7)
 
-- แกนภาษา: `list`, `dict`, `set`, `if`, `for`, `def`, List Comprehension, `None`
-- ไฟล์และข้อความ: `pathlib`, `json`, `yaml`, `csv`, `re`
-- Error Handling และ Logging: `try/except`, `raise`, `logging`
-- คุยกับโลกภายนอก: `subprocess`, `requests`/`urllib`, `os.environ`
-- โครงสร้างและ Testing: `venv`, `uv`/`pip`, `argparse`, `pytest`
-- Cloud Automation: คุม AWS ด้วย `boto3`
-- โปรเจคจบเฟส 2: CLI Tool ตรวจสอบ Resource ที่เปิดค้างไว้บน AWS/Cloudflare พร้อม Unit Test และ GitHub Actions
+Split into small steps so each file introduces only a few ideas:
+- Variables, strings, control flow, and `None`
+- `list`, `dict`, and `set` (focusing on `dict` for JSON and cloud APIs)
+- Functions, `try/except`, and `logging`
+- Files, `pathlib`, `json`, `yaml`, `csv`
+- Running shell commands (`subprocess`), environment variables, and HTTP requests
+- CLI arguments (`argparse`), `venv`, and basic `pytest`
+- Read-only AWS automation with `boto3` (STS identity, EC2, S3)
+- Capstone: a small CLI that checks running/idle cloud resources, with unit tests
 
-### เฟส 3: Go แบบเรียบง่ายสำหรับงาน Infra (`03-go/`, สัปดาห์ที่ 7 ถึง 8)
+### Phase 3: Minimal Go for Infra Tools (`03-go/`, Weeks 8 to 10)
 
-- แกนภาษาและ Type System: `struct`, `slice`, `map`, `if err != nil`
-- Pointer พื้นฐาน (`val` vs `*val`)
-- Standard Library: `os`, `flag`, `net/http`, `encoding/json`
-- Concurrency พื้นฐาน: `goroutine` และ `WaitGroup`
-- Cross-compile ด้วย `go build` เป็น Binary ไฟล์เดียว
-- โปรเจคจบเฟส 3: Concurrent Health Checker ที่รับรายชื่อ URL จากไฟล์แล้วยิงเช็คพร้อมกัน
+Enough Go to write small CLIs and read Cloud Native codebases without getting lost:
+- Variables, types, loops, functions, and `if err != nil`
+- `slice`, `map`, `struct`, and JSON decoding
+- Plain pointers (value vs `*pointer` in one concrete example)
+- CLI flags (`flag`), `os.Getenv`, and `net/http` with timeouts
+- Capstone: a single-binary URL health checker, built sequentially first and then upgraded with `goroutine` and `sync.WaitGroup`
 
-### เฟส 4: ความรู้เสริมสำหรับสัมภาษณ์และหน้างาน (`04-ops-concepts/`, สัปดาห์ที่ 9 ถึง 10)
+### Phase 4: Ops and Interview Essentials (`04-ops-concepts/`, Weeks 11 to 12)
 
-- SQL พื้นฐานสำหรับสาย Ops: `SELECT`, `WHERE`, `JOIN`, `GROUP BY`, `EXPLAIN`, Backup/Restore
-- Linux/C Concepts สำหรับ SysAdmin: Process/Signal (`SIGTERM` vs `SIGKILL`), Exit Code, OOM Killer, File Descriptor (`ulimit`, `lsof`), Socket (`ss`)
-- การอ่านและตรวจโค้ดที่ AI เขียน: จับ Hardcoded secret, Command injection, Error ที่ถูกกลืน และ Race condition
+Hands-on drills for troubleshooting and code review:
+- SQL basics on SQLite/PostgreSQL (`SELECT`, `WHERE`, `JOIN`, `GROUP BY`, `EXPLAIN`, dump/restore)
+- Linux OS concepts (`SIGTERM` vs `SIGKILL`, exit codes, OOM killer, file descriptors, listening sockets)
+- Reviewing AI-generated code (spotting hardcoded secrets, command injection, swallowed errors, missing timeouts)
 
 ---
 
-## กติกาการฝึกเพื่อให้ใช้หางานได้จริง
+## Study Rules
 
-1. **เขียนเองก่อนเปิด AI**: ลองเขียนแบบฝึกหัดเองจนรันได้หรือติดจริงก่อน ค่อยให้ AI อธิบายจุดที่ติด
-2. **อธิบายโค้ดกลับเป็นคำพูดได้**: ทุกไฟล์ที่เขียนเสร็จ ต้องอธิบายได้ว่าแต่ละส่วนทำอะไรและถ้าพังจะเกิดอะไรขึ้น
-3. **ผูกกับงานจริงใน CV**: หลังจบเฟส 2 ให้ลองเปิดอ่านโค้ดในโปรเจคของตัวเอง (เช่น `chunnylab-music-studio` หรือ `a440`) โดยไม่พึ่ง AI เพื่อเช็คว่าเข้าใจโครงสร้างจริงแล้ว
+1. **Write before asking AI**: Try each exercise yourself until it runs or you hit a real blocker, then ask AI to explain the specific gap.
+2. **Explain your code out loud**: After finishing a script, walk through what each block does and how it fails. This mirrors technical interviews.
+3. **Read your own production repos**: After Phase 2, read through your existing projects (such as `chunnylab-music-studio` and `a440`) without AI assistance to confirm you follow the code.

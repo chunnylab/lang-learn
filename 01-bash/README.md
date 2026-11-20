@@ -1,26 +1,28 @@
-# เฟส 1: Bash สำหรับงาน Production
+# Phase 1: Production Bash
 
-โฟลเดอร์นี้รวมพื้นฐานและ Lab ที่เคยทำไว้ทั้งหมดมาอยู่ด้วยกัน เพื่อต่อยอดสู่การเขียนสคริปต์ระดับ Production
+This folder combines earlier Bash foundations and hands-on labs, then builds the habits needed for scripts that run on real Linux servers and CI pipelines.
 
-## สิ่งที่รวมเข้ามาแล้ว
+## Imported Work
 
-### 1. `basics/` (จาก `bash-script-learning`)
-บทเรียนพื้นฐาน 8 บท ตั้งแต่ตัวแปร, รับค่า, เงื่อนไข (`04-1_condition.sh`), ลูป, ฟังก์ชัน, อาเรย์ ไปจนถึงสคริปต์ backup (`08_backup.sh`)
+### `basics/` (from `bash-script-learning`)
+Eight beginner lessons covering variables, input, conditions (`04-1_condition.sh`), loops, functions, arrays, and a backup script (`08_backup.sh`).
 
-### 2. `labs/` (จาก `bash-practice`)
-Lab ที่เขียนฝึกเองตามลำดับ:
-- `fundamental/awk/`: ฝึกใช้ `awk`
-- `lab-01-basic-create-remove-files/`: สร้างและลบไฟล์พื้นฐาน
-- `lab-02-create-files-with-detail/`: สร้างไฟล์พร้อมรายละเอียด
-- `lab-03-pipeline/`: Pipeline สร้างไฟล์, รันไฟล์ และลบไฟล์แบบตั้งเวลา delay (`sleep`)
-- `lab-04-logs/`: สร้างและวิเคราะห์ `access.log` ด้วย `awk` (ยังค้าง TODO ฟังก์ชัน `report_error_urls` ใน `analyze.sh`)
+### `labs/` (from `bash-practice`)
+Self-built practice labs:
+- `fundamental/awk/`: intro `awk` exercises
+- `lab-01-basic-create-remove-files/`: basic file creation and cleanup
+- `lab-02-create-files-with-detail/`: creating files with generated content
+- `lab-03-pipeline/`: create, run, and delete pipeline with configurable `sleep` delays
+- `lab-04-logs/`: access log generator and `awk` analyzer (open TODO: `report_error_urls` in `analyze.sh`)
 
-หมายเหตุ: ไม่ได้ดึง `nightmare-code/` จาก `bash-practice` เข้ามา เพราะเป็นโค้ดที่ AI สร้างไว้ดูเป็นกรณีศึกษา ไม่ใช่งานฝึกเอง
+Note: `nightmare-code/` from `bash-practice` was intentionally excluded because it is an AI-generated case study, not hand-written lab work.
 
-## สิ่งที่จะลุยต่อใน `ops/`
+## Next Steps in `ops/` (Weeks 1 to 2)
 
-1. ปิดงาน `report_error_urls` ใน `labs/lab-04-logs/analyze.sh`
-2. `01_strict_and_trap.sh`: `set -euo pipefail`, `trap` และ Exit Code
-3. `02_pipes_text.sh`: `grep`, `awk`, `sed`, `xargs` กับไฟล์ Log จริง
-4. `03_curl_jq.sh`: ยิง HTTP API และแกะ JSON ด้วย `jq`
-5. `04_healthcheck.sh`: โปรเจคจบเฟส 1 ตรวจ Disk/Service และส่งแจ้งเตือน
+Each script focuses on one habit at a time:
+
+1. **Finish `labs/lab-04-logs/analyze.sh`**: complete `report_error_urls` (filter status `>= 400`, count by URL, print top N).
+2. **`01_safe_scripts.sh`**: `set -euo pipefail`, safe quoting, explicit exit codes, and `trap` for cleaning up temp files.
+3. **`02_text_pipes.sh`**: practical `grep`, `awk`, `sed`, `sort`, and `uniq` pipelines on log files.
+4. **`03_http_json.sh`**: checking HTTP endpoints with `curl -fsS` and extracting fields with `jq`.
+5. **`04_healthcheck.sh` (Capstone)**: check disk usage and an HTTP service, return clear exit codes (`0` ok, `1` alert), with a short note on scheduling via `cron` or `systemd`.

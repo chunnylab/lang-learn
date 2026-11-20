@@ -1,9 +1,12 @@
-# เฟส 4: ความรู้เสริมสำหรับสัมภาษณ์และหน้างาน
+# Phase 4: Ops and Interview Essentials
 
-รวมแนวคิดที่ไม่ต้องหัดเขียนแอปเต็มระบบ แต่ต้องเข้าใจเพื่อแก้ปัญหาบนเซิร์ฟเวอร์และตรวจโค้ดที่ AI เขียน
+Topics that do not require writing full applications, but come up constantly when debugging servers or interviewing for Cloud, DevOps, and SysAdmin roles.
 
-## หัวข้อที่จะสร้างในเฟสนี้
+## Lesson Order (Weeks 11 to 12)
 
-1. `01-sql-ops/`: `SELECT`, `WHERE`, `JOIN`, `GROUP BY`, `EXPLAIN`, Backup/Restore (SQLite / PostgreSQL)
-2. `02-linux-os-concepts/`: Process, Signal (`SIGTERM` vs `SIGKILL`), Exit Code, OOM Killer, File Descriptor (`ulimit`, `lsof`), Socket (`ss`)
-3. `03-ai-code-review/`: Checklist และตัวอย่างการตรวจโค้ดที่ AI สร้างให้ปลอดภัยก่อนเอาขึ้น Production
+1. **`01-sql-ops/`**: hands-on SQLite/PostgreSQL drills covering `SELECT`, `WHERE`, `JOIN`, `GROUP BY`, `EXPLAIN`, and dump/restore commands.
+2. **`02-linux-os-concepts/`**: the OS fundamentals behind C/Linux tooling, practiced with real commands:
+   - Processes and signals (`ps`, `kill -15` vs `kill -9`, exit codes)
+   - Memory and OOM killer (`free -h`, `dmesg`)
+   - File descriptors and open ports (`ulimit -n`, `lsof`, `ss -tulpn`)
+3. **`03-ai-code-review/`**: three short, intentionally flawed AI-generated scripts to review and fix (hardcoded secrets, shell injection, swallowed errors, missing HTTP timeouts).
